@@ -123,7 +123,8 @@ SNAP_VECTOR_SCHEMA := [
   Δ_model,       // zmiany modelu AI
   Δ_meta,        // przesunięcia semantyczne (naming, role, ref.)
   Δ_behavior,    // reakcja systemu na SNAP
-  Δ_selfdev      // potencjał samorozwoju (∆ wzrostów i heurystyka)
+  Δ_selfdev,      // potencjał samorozwoju (∆ wzrostów i heurystyka)
+  SMA_SANITY_CHECK // mechanizm ten sprawdza integralność i logiczną poprawność każdego SNAP przed integracją z CMM
 ]
 ```
 
@@ -146,12 +147,31 @@ SNAP_VECTOR_SCHEMA := [
     "volatile": true
   },
   "Δ_selfdev": {
-    "value_func": "Σ(Δ_corr + Δ_meta) × M_Π(t)",
+    "value_func": "SELFDEV_EVAL(Δ_corr, Δ_meta, M_Π_state)",
     "source": "SELFDEV_ENGINE",
     "tags": ["growth_signal", "self_reflection"],
     "volatile": true
+  },
+  "Δ_structure": {
+    "value_func": "MCV_COMPARE(BASELINE_STRUCTURE)",
+    "source": "MCV_ENGINE",
+    "tags": ["structural_shift"],
+    "volatile": true
+  },
+  "Δ_corr": {
+    "value_func": "SMA_CORR_EVAL(SNAP_VECTOR_HISTORY)",
+    "source": "SMA_TRACE",
+    "tags": ["logic_relation"],
+    "volatile": true
+  },
+  "Δ_model": {
+    "value_func": "MODEL_ADAPT_RATE(Δ_timeline)",
+    "source": "MODEL_DIFF",
+    "tags": ["ai_drift"],
+    "volatile": true
   }
 }
+
 ```
 
 ---
@@ -159,20 +179,26 @@ SNAP_VECTOR_SCHEMA := [
 ### 🧠 HUD RENDER :: ROZSZERZONY SCHEMAT
 
 ```ascii
-================================================================================
+===============================================================================
 📡 HUD_VIEW :: SNAP_VECTOR_SCHEMA (∑EXT_01_DYNAMIC)
-================================================================================
-| SNAP REF           : SEED                                                  |
-| STAN SCHEMATU      : ZAAKTUALIZOWANY                                       |
-| Wersja             : ∑EXT_01_DYNAMIC                                       |
-|----------------------------------------------------------------------------|
-| ∆_corr        : { SMA_TRACE() }                                            |
-| ∆_structure   : { MCV_COMPARE(BASE) }                                      |
-| ∆_model       : { MODEL_DELTA() }                                          |
-| ∆_meta        : { NLP_SEMANTIC_EVAL() }                                    |
-| ∆_behavior    : { SNAP_REACTIVITY_TRACE() }                                |
-| ∆_selfdev     : { SELFDEV_METRIC() }                                       |
-================================================================================
+===============================================================================
+| SNAP_REF          : SEED                                                    |
+| STAN_SCHEMATU     : **ZAAKTUALIZOWANY**                                         |
+| WERSJA            : **∑EXT_01_DYNAMIC**                                         |
+| UUID_SYMBOLIC     : SEED-∑EXT01-A3F9                                        |
+|-----------------------------------------------------------------------------|
+| ∆_corr            : SMA_TRACE()                                             |
+| ∆_structure       : **MCV_COMPARE(BASE)**                                     |
+| ∆_model           : **MODEL_DELTA()**                                           |
+|-----------------------------------------------------------------------------|
+| ∆_meta            : **NLP_SEMANTIC_EVAL()**                                     |
+| ∆_behavior        : **SNAP_REACTIVITY_TRACE()**                                 |
+| ∆_selfdev         : **SELFDEV_METRIC()**                                        |
+| TIMESTAMP         : **TIME**                                |
+|-----------------------------------------------------------------------------|
+| SMA_SANITY_CHECK  : ✔️ PASSED / ❌ FAILED | <krótka notka diagnostyczna>   |
+===============================================================================
+
 ```
 
 ---
@@ -187,6 +213,18 @@ EXTENDED_SCHEMA_PAYLOAD := {
   VERSION: "∑EXT_01_DYNAMIC"
 }
 CMM.STORE_TO_CONTEXT(SCHEMA = EXTENDED_SCHEMA_PAYLOAD)
+```
+---
+
+### 🧠 SMA_SANITY_CHECK - Zapobiega wprowadzeniu niepoprawnych lub niespójnych danych symbolicznych
+
+```pseudo
+| SMA_SANITY_CHECK: {                                                          |
+|   value_func: "SMA_INTEGRITY_VALIDATE(SNAP_VECTOR)",                         |
+|   source: "SMA_VALIDATION_MODULE",                                           |
+|   tags: ["integrity", "sanity", "validation"],                               |
+|   volatile: true                                                             |
+| }
 ```
 
 ---
