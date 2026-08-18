@@ -1,0 +1,29 @@
+# Local environments / IDE
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Python generated state
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local secrets / runtime
+.env
+.env.*
+!.env.sample
+*.log
+
+# Generated outputs / scratch
+build/
+dist/
+.tmp/
+tmp/
+
+# OS
+.DS_Store
+Thumbs.db
