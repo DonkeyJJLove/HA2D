@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "repository": {
+    "id": "DonkeyJJLove/HA2D",
+    "url": "https://github.com/DonkeyJJLove/HA2D",
+    "owner": "DonkeyJJLove",
+    "default_branch": "master",
+    "vcs_ref": null
+  },
+  "cyber_lion": {
+    "tile_id": "context-memory.ha2d",
+    "roles": ["ContextMemoryLab", "MemoryCandidateProvider", "ReplayContextProvider", "ProcessStateDiagnostics"],
+    "layers": ["INF", "SEM"],
+    "disposition": ["KEEP", "REFINE", "EXPERIMENTAL", "INTEGRATE"]
+  },
+  "capabilities": [
+    "context.capture",
+    "memory.candidate",
+    "memory.replay",
+    "semantic.revision",
+    "process.diagnostics"
+  ],
+  "authority": {
+    "maximum_level": "read",
+    "required_gates": ["memory.commit.policy", "cyber-lion.mand"]
+  },
+  "observability": {
+    "logs": ["context.snapshot", "memory.candidate", "semantic.revision"],
+    "metrics": ["context.age", "candidate.count", "revision.count", "diagnostic.drift"],
+    "traces": ["working-context→candidate→review→commit/supersede"]
+  },
+  "security": {
+    "trust_boundaries": [
+      "working context != committed memory",
+      "semantic coherence != empirical truth",
+      "diagnostic state != authority",
+      "memory commit requires explicit policy and provenance"
+    ]
+  },
+  "epistemic": {
+    "status": "EXPERIMENTAL",
+    "confidence": 0.74
+  }
+}
