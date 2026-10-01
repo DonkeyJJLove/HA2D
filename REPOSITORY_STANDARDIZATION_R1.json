@@ -1,0 +1,19 @@
+{
+  "schema": "lion.repository-standardization/v1",
+  "repository": "DonkeyJJLove/HA2D",
+  "baseline": {
+    "head": "a88f842efc9be414ab3fe10fb8766dcb013c0135",
+    "tree": "ba5fb05784434c15640da005da8dced52008d176"
+  },
+  "global_standard_owner": "DonkeyJJLove/ai_platform:LION/standards/README.md",
+  "rename_map": [
+    {
+      "from": "readme.md",
+      "to": "README.md"
+    }
+  ],
+  "additional_repairs": [],
+  "unresolved": [],
+  "delete_effect": "NONE",
+  "authority_effect": "NONE"
+}
