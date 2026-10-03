@@ -112,6 +112,16 @@
         "path": "REPOSITORY_STANDARDIZATION_R1.json",
         "class": "MACHINE_READABLE_ARCHITECTURE",
         "currentness": "LOCAL_OWNER"
+      },
+      {
+        "path": "contracts/context_snapshot.py",
+        "class": "CONTRACT",
+        "currentness": "LOCAL_OWNER"
+      },
+      {
+        "path": "reference/context_importer.py",
+        "class": "CONTRACT",
+        "currentness": "LOCAL_OWNER"
       }
     ],
     "discoverability": {
