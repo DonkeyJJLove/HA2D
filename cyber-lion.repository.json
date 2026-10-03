@@ -74,12 +74,15 @@
     "semantic_exports": [
       "context_memory",
       "memory_semantics",
-      "process_diagnostics"
+      "process_diagnostics",
+      "temporal_semantic_state_candidate",
+      "supersession_evidence"
     ],
     "semantic_imports": [
       "architecture",
       "contracts",
-      "currentness"
+      "currentness",
+      "semantic_relevance"
     ],
     "repository_dependencies": [
       "DonkeyJJLove/ai_platform"
